@@ -1,0 +1,189 @@
+Chapter 3 Branching and merging and Pull Request in GitHub
+
+$ git checkout -b "my-first-branch"
+Switched to a new branch 'my-first-branch'
+
+$ git commit -m "Installtin guide added "
+[my-first-branch 72f5980] Installtin guide added
+ 1 file changed, 1 insertion(+)
+ create mode 100644 install.md
+
+$ git push -u origin my-first-branch
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 314 bytes | 62.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'my-first-branch' on GitHub by visiting:
+remote:      https://github.com/awschatswood/riendly-giggle/pull/new/my-first-branch
+remote:
+To github.com:awschatswood/riendly-giggle.git
+ * [new branch]      my-first-branch -> my-first-branch
+Branch 'my-first-branch' set up to track remote branch 'my-first-branch' from 'origin'.
+
+$ git status
+On branch my-first-branch
+Your branch is up to date with 'origin/my-first-branch'.
+
+nothing to commit, working tree clean
+
+then the rest action are done on the webgui.
+
+PullRequest , review ==> Compare and PullRequst 
+
+
+to switch to main master on the local repo:
+
+
+$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/code/riendly-giggle (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+
+
+
+
+$ git log
+commit 64e6462a0cdf20d6790181ceb3f111763dda5ea1 (HEAD -> master, origin/master, origin/HEAD)
+Merge: 749a9a9 4002772
+Author: Robin Xu <aws.chatswood@gmail.com>
+Date:   Sat Aug 17 10:53:17 2019 +1000
+
+    Merge branch 'master' of github.com:awschatswood/riendly-giggle
+
+    this is a test changing from both local and remote
+
+commit 749a9a9a56f21b1bce745bf991798fbf04d5ee85
+Author: Robin Xu <aws.chatswood@gmail.com>
+Date:   Sat Aug 17 10:52:45 2019 +1000
+
+     Change from local again
+
+commit 4002772c2907797ece0e71086814dd34077f8be3
+Author: awschatswood <42919111+awschatswood@users.noreply.github.com>
+Date:   Sat Aug 17 10:51:48 2019 +1000
+
+    new change on readme from both local and remote
+
+commit 3ff0df1b6957eddb4ae2ae11c83b8a1d2771a67f
+Merge: 1754254 8447d75
+:
+
+
+Date:   Sat Aug 17 09:31:20 2019 +1000
+
+    add new ACME configuration Files
+
+commit 6e4bc792acd14c0bc634cbbe96ae1235944e5bc4
+Author: awschatswood <42919111+awschatswood@users.noreply.github.com>
+Date:   Sat Aug 17 08:56:43 2019 +1000
+
+    Add new Contributing file
+
+commit c8e4c3ee84aa90b50a11f4f8fa4baf3b7e77f818
+Author: awschatswood <42919111+awschatswood@users.noreply.github.com>
+Date:   Sat Aug 17 08:54:45 2019 +1000
+
+    create README file
+
+commit ab1b5697d9622e4573273908eb414eca97672a99
+Author: awschatswood <42919111+awschatswood@users.noreply.github.com>
+Date:   Fri Aug 16 23:06:27 2019 +1000
+
+    Initial commit
+(END)
+
+
+
+how to label the 
+
+$ git tag stable master
+
+
+$ git tag
+stable
+
+
+
+$ git log  --oneline --graph --decorate --all
+* 72f5980 (origin/my-first-branch, my-first-branch) Installtin guide added
+*   64e6462 (HEAD -> master, tag: stable, origin/master, origin/HEAD) Merge branch 'master' of github.com:awschatswood/riendly-giggle
+|\
+| * 4002772 new change on readme from both local and remote
+* | 749a9a9  Change from local again
+|/
+*   3ff0df1 Merge branch 'master' of github.com:awschatswood/riendly-giggle
+|\
+| * 8447d75  this is done from remote.
+* | 1754254  making change locally on README.md
+|/
+* ae233bd Update nn4600-11.txt
+* c90e4dd add new ACME configuration Files
+* 6e4bc79 Add new Contributing file
+* c8e4c3e create README file
+* ab1b569 Initial commit
+
+
+$ git tag -a v0.1 -m "0.1 releae" ae233bd
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/code/riendly-giggle (master)
+$ git tag
+stable
+v0.1
+
+$ git tag -a v0.2 -m "0.2 release"  3ff0df1
+
+
+$ git push --tags
+Enumerating objects: 35, done.
+Counting objects: 100% (35/35), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (33/33), done.
+Writing objects: 100% (35/35), 116.16 KiB | 936.00 KiB/s, done.
+Total 35 (delta 17), reused 8 (delta 2)
+remote: Resolving deltas: 100% (17/17), done.
+To github.com:awschatswood/riendly-giggle.git
+ * [new tag]         stable -> stable
+ * [new tag]         v0.1 -> v0.1
+ * [new tag]         v0.2 -> v0.2
+
+
+$ git tag -d "stable"
+Deleted tag 'stable' (was 64e6462)
+
+
+$ git tag -d "v0.1"
+Deleted tag 'v0.1' (was 5beb59a)
+
+$ git push origin :v0.1
+To github.com:awschatswood/riendly-giggle.git
+ - [deleted]         v0.1
+
+
+
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/code/riendly-giggle (master)
+$
+
+
+
+tags and releases:
+
+Relase we can add release. while tags can't. 
+release can attach binary files. 
+
+
+
+
+
+
+

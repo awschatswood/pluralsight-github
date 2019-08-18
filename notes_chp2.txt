@@ -1,0 +1,378 @@
+
+
+This is to get a copy from Github to the local repository. 
+the README.md and CONTRIBUTING.md  and LICENSE are created using Github Web GUI already. 
+
+Example 1:
+First to clone then make change in local repo and push the change to remote repo 
+
+
+$ git clone git@github.com:awschatswood/riendly-giggle.git  <====
+（this is copied from GitHub, either use SSH or https)
+
+SSH: git@github.com:awschatswood/riendly-giggle.git
+https: https://github.com/awschatswood/riendly-giggle.git
+
+
+
+Cloning into 'riendly-giggle'...
+remote: Enumerating objects: 10, done.
+remote: Counting objects: 100% (10/10), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 10 (delta 2), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (10/10), 5.12 KiB | 308.00 KiB/s, done.
+Resolving deltas: 100% (2/2), done.
+
+
+$ ls -al
+total 22
+drwxr-xr-x 1 Administrator 197121    0 Aug 17 09:06 ./
+drwxr-xr-x 1 Administrator 197121    0 Aug 17 09:06 ../
+drwxr-xr-x 1 Administrator 197121    0 Aug 17 09:06 .git/
+-rw-r--r-- 1 Administrator 197121 5912 Aug 17 09:06 .gitignore
+-rw-r--r-- 1 Administrator 197121   91 Aug 17 09:06 CONTRIBUTING.md <== New 
+-rw-r--r-- 1 Administrator 197121 1090 Aug 17 09:06 LICENSE  <== New 
+-rw-r--r-- 1 Administrator 197121  171 Aug 17 09:06 README.md  <== New 
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+
+
+I now copied two files into the directory:  /c/pluralsight/GitHub/Code/riendly-giggle
+
+
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        nn4600-11.txt
+        nn4600-12.txt
+
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+$ git add .  <=== move from working dir to staging dir 
+
+
+
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   nn4600-11.txt
+        new file:   nn4600-12.txt
+
+
+$ git commit -m "add new ACME configuration Files"  <=== move from staging area to .git repo area
+
+[master c90e4dd] add new ACME configuration Files
+ 2 files changed, 18214 insertions(+)
+ create mode 100644 nn4600-11.txt
+ create mode 100644 nn4600-12.txt
+
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.  <==== Ahead of github now!!!!
+
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+$ git push origin master <====  push to remote Github. 
+(here is the origin is poiting to remote Github repository riendly-giggle )
+
+Warning: Permanently added the RSA host key for IP address '52.64.108.95' to the list of known hosts.
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 107.90 KiB | 1.30 MiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To github.com:awschatswood/riendly-giggle.git
+   6e4bc79..c90e4dd  master -> master
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+
+
+$ git status  <===
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+
+
+Till now, the local repo and remote repo are up-to-date and synced . 
+
+
+
+
+if you switch directory , for example to  /c/pluralsight/GitHub/Code/Broadworks
+$ pwd
+/c/pluralsight/GitHub/Code/Broadworks
+
+so when you do a   "git remote -v" , you will see the remote Github already chagned to different repository.
+
+$ git remote -v
+origin  git@github.com:awschatswood/broadworks.git (fetch)
+origin  git@github.com:awschatswood/broadworks.git (push)
+
+
+
+Example 2: make change on the remote repository only. 
+
+
+
+
+$ git fetch   <<======== (fetch only fetch the change but does not merge) 
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:awschatswood/riendly-giggle
+   c90e4dd..ae233bd  master     -> origin/master
+
+
+$ git status
+On branch master
+Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded. <<=== this told you , local is behind remote) 
+ <<======== (fetch only fetch the change but does not merge, so the local is behind the remote repo)
+ 
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+
+$ git pull  <<======== (pull  will do both fetch and merge) 
+
+Updating c90e4dd..ae233bd
+Fast-forward
+ nn4600-11.txt | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.  <===== this told you your local and remote are synced. 
+
+nothing to commit, working tree clean
+
+
+
+
+
+Example 3: Made change both locally and remotely. 
+
+1. first change on the remote Github. 
+
+2. i then make change locally ( to modify the README.md file) 
+
+$ git add .
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   README.md
+
+
+
+$ git commit -m " making change locally on README.md"
+[master 1754254]  making change locally on README.md
+ 1 file changed, 2 insertions(+)
+ 
+ 
+ 
+ $ git push origin master   <== now the change was rejected !!!!
+ 
+To github.com:awschatswood/riendly-giggle.git
+ ! [rejected]        master -> master (fetch first)     <== now the change was rejected !!!!
+error: failed to push some refs to 'git@github.com:awschatswood/riendly-giggle.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+
+
+
+in order to resolve the issue, we have to 
+
+$ git pull
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:awschatswood/riendly-giggle
+   ae233bd..8447d75  master     -> origin/master
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+
+
+$ git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+
+$ git pull
+error: Pulling is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+
+
+so what i did is have to fix the change manually( basically , i delete the local change) 
+
+
+$ np README.md
+
+( i just removed the local change) 
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master|MERGING)
+$ git add .
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master|MERGING)
+$ git commit
+[master 3ff0df1] Merge branch 'master' of github.com:awschatswood/riendly-giggle
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+$ git push origin master
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 722 bytes | 144.00 KiB/s, done.
+Total 6 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), completed with 2 local objects.
+To github.com:awschatswood/riendly-giggle.git
+   8447d75..3ff0df1  master -> master
+   
+   $ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+
+
+
+start from scratch for local and remote change 
+
+
+$ np README.md
+
+(add a new line above ) 
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+$ git add .
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+$ git commit -m " Change from local again"
+[master 749a9a9]  Change from local again
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+$ git push origin master
+To github.com:awschatswood/riendly-giggle.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@github.com:awschatswood/riendly-giggle.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+$
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+
+
+$ git pull  << ===== pull will do fetch and merge at the same time) 
+
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:awschatswood/riendly-giggle
+   3ff0df1..4002772  master     -> origin/master
+Auto-merging README.md
+Merge made by the 'recursive' strategy.
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/riendly-giggle (master)
+$
+
+
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.  <<========= so once merged, local is newer so it is ahead of remote. 
+
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+
+
+$ git push origin master  <=== update remote reop with push . 
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 512 bytes | 102.00 KiB/s, done.
+Total 4 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
+To github.com:awschatswood/riendly-giggle.git
+   4002772..64e6462  master -> master
+
+
+
+$ git status    <<========= so once pushed, local is same as remote . 
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+
+
+
+
+
+
+
+
+
+
+
+
+

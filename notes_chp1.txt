@@ -1,0 +1,212 @@
+GitHUB tutorial:
+
+
+First of call , need to download and install git (windows version) from https://git-scm.com/downloads
+
+
+$ git config --global user.name " Robin Xu"
+$ git config --global user.email "aws.chatswood@gmail.com"
+$ git config --edit --global
+    this will open the default editor (Notepad ++)  as below:
+	
+[user]
+	name = " Robin Xu"
+	email = aws.chatswood@gmail.com
+
+
+
+cd "c:\pluralsight\GitHub\Code"
+
+init the local repository:
+
+
+$ git init Broadworks
+Initialized empty Git repository in C:/pluralsight/GitHub/Code/Broadworks/.git/
+
+
+$ cd Broadworks/
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/Broadworks (master)
+$ ls -la
+total 4
+drwxr-xr-x 1 Administrator 197121 0 Aug 16 15:54 ./
+drwxr-xr-x 1 Administrator 197121 0 Aug 16 15:54 ../
+drwxr-xr-x 1 Administrator 197121 0 Aug 16 15:54 .git/
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/Broadworks (master)
+
+
+$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+
+
+$ vi README.md   <<=======
+
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+$ git add README.md
+warning: LF will be replaced by CRLF in README.md.
+The file will have its original line endings in your working directory
+
+
+
+
+$ git status  <<=======
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   README.md
+
+
+
+
+$ git commit  -m " Initial Commit to add README.md"   <<=======
+[master (root-commit) abef54b]  Initial Commit to add README.md
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README.md
+
+
+$ git status   <<=======
+On branch master
+nothing to commit, working tree clean
+
+
+add a new file  check_log_channel.sh under the directory：
+
+$ git status  <<=======
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        check_log_channel.sh
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+
+$ git add .   <<======= （ this will add all files under current directory to the local repository) 
+
+Administrator@MININT-0LFLFVE MINGW64 /c/pluralsight/GitHub/Code/Broadworks (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   check_log_channel.sh
+
+$ git commit -m " Add Check_logchannel.sh file into the repo"
+[master 09bfee2]  Add Check_logchannel.sh file into the repo
+ 1 file changed, 81 insertions(+)
+ create mode 100644 check_log_channel.sh
+
+
+
+Now once you already created the github via webGUI . 
+login and create a remote 
+
+( this is copied from GitHub web page, once you create the github repository broadworks.git)
+
+then on the local machine, run the following command:
+
+
+
+git remote add origin git@github.com:awschatswood/broadworks.git  <<=======
+
+(here origin refers to the remote Github) 
+
+
+
+
+$ git remote -v  <<=======
+origin  git@github.com:awschatswood/broadworks.git (fetch)
+origin  git@github.com:awschatswood/broadworks.git (push)
+
+
+now git local and remote are connected.  now they konw each other:
+
+
+git push -u origin master <<=======
+
+ERROR : ERROR: ERROR:  <<=======
+
+git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+on the local machine
+
+$ ssh-keygen -t rsa -b 4096 -C "aws.chatswood@gmail.com" <<=======
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/Administrator/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/Administrator/.ssh/id_rsa.
+Your public key has been saved in /c/Users/Administrator/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:De9d+gpBabvBG/0GqhECpnznGAlK2q000UULzDUF8ms aws.chatswood@gmail.com
+The key's randomart image is:
++---[RSA 4096]----+
+|   ooo*o.        |
+|   .o= o   .     |
+| .o + o . +      |
+|o+ * o . B o     |
+|o * = E S O o .  |
+| . + * . o O =   |
+|  . . . . * o o  |
+|         o . o   |
+|        .   ...  |
++----[SHA256]-----+
+
+
+
+Now need to go to GitHUB web GUI , settings --> SSH and GPG keys -->
+Generate new SSH keys, Copy the above public key and save 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCpV6pgilRl62PIX+owKFoGUi6JJt9AoLa2DBj8UknNKzqeFpVbfA60sA32NANsEl6QiUvNk69RQGftuD0iPRAkP7tnNURWJaCghpGimRuLq4Uk0IFRti33wpzT6ub8krW7ah5bHculCFSYMWnlLkK5PGB10msZ8qo90ZMyIIuWuVyeoOCLKP3LB6/7z3fvqouk+UXn4Uk55Eeo6YoPbY0+viucw7DzxX4rmspWzTPnvRLbBFbyKYY90/N246uUCHWRT+VwD4TkmmahSyRVqrqsqOG37vF+Jt91m+ZHmMAR5RyVw3i+8QLh8ePURQgZziF0idj1bODKO4UjNPGquF0ciPVSwW3TLN+ydIOgQ3pr0sGz7FUJ5DZo9YikY0ntjk7v3A1TmJ38DchUbzjRduwL0c9XPytAGzuj3cbH7KTv6xr6XotJNO1cShMzFFoA0xBEoN5LW5hXnR63cHJZ5TSr0xdtVrpNX5Y7vXt3RYYRvDvWm+grTrscwvBUij7dh8MwuBEqq2oq6dtPqIpSRpY7X2pEjPb450s19EkoTqLMdcbdxfAIJThgvPGmUXl0Z7k2gTwHqzWS+0edMTmLZuthkFSfdsELDMZeB1hFhtQKDx8B1vSY2mnIZ8rBjg6vFQ7mUIiZE3buQ47Tulv4gsT7EgpH9d6IsE4LEah2BapsXQ== aws.chatswood@gmail.com
+
+from git bash: 
+
+$ ssh -T git@github.com  <<=======
+Hi awschatswood! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+
+
+Now run the same command again:  <<=======
+
+$ git push -u origin master
+Warning: Permanently added the RSA host key for IP address '13.236.229.21' to the list of known hosts.
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 1.22 KiB | 113.00 KiB/s, done.
+Total 6 (delta 0), reused 0 (delta 0)
+To github.com:awschatswood/broadworks.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+
+
+
+
